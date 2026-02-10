@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DearSkin - Your caring skincare companion that balances science with wellness">
+    <meta name="theme-color" content="#E86B8F">
+
+    <title>DearSkin - Caring Skincare Companion</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="app-styles.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="routine-styles.css">
+    <link rel="stylesheet" href="product-styles.css">
+    <link rel="stylesheet" href="progress-styles.css">
+    <link rel="stylesheet" href="routine-timer.css">
+    <link rel="stylesheet" href="profile-styles.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+</head>
+
+<body data-theme="light">
+
+    <!-- App Container -->
+    <div id="app-root">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="app-logo">
+                        <span class="gradient-text">DearSkin</span>
+                    </h1>
+                </div>
+
+                <div class="header-right">
+                    <!-- Cloud Sync Indicator -->
+                    <div class="sync-indicator" id="sync-indicator" style="display: none;">
+                        <!-- Populated by JavaScript -->
+                    </div>
+
+                    <!-- Authentication Section -->
+                    <button class="btn btn-primary" id="sign-in-button" style="display: none;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        Sign In
+                    </button>
+
+                    <div class="user-profile" id="user-profile" style="display: none;">
+                        <img class="user-avatar" id="user-avatar" src="" alt="User avatar">
+                        <span class="user-name" id="user-name"></span>
+                        <button class="btn btn-ghost btn-sm" id="sign-out-button">Sign Out</button>
+                    </div>
+
+                    <!-- Accessibility Controls -->
+                    <button class="btn btn-icon" id="voiceToggle" aria-label="Toggle voice guide" title="Voice Guide">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                            <line x1="12" y1="19" x2="12" y2="23"></line>
+                            <line x1="8" y1="23" x2="16" y2="23"></line>
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-icon" id="themeToggle" aria-label="Toggle theme" title="Change Theme">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-icon" id="settingsBtn" aria-label="Settings" title="Settings">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M12 1v6m0 6v6m5.196-14.196l-4.243 4.243m0 5.657l4.243 4.243M23 12h-6m-6 0H1m14.196 5.196l-4.243-4.243m0-5.657l4.243-4.243">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+
+            <!-- Navigation Tabs -->
+            <nav class="app-nav" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" aria-controls="home-panel" id="home-tab"
+                    data-tab="home">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <span>Home</span>
+                </button>
+
+                <button class="tab" role="tab" aria-selected="false" aria-controls="routine-panel" id="routine-tab"
+                    data-tab="routine">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Routine</span>
+                </button>
+
+                <button class="tab" role="tab" aria-selected="false" aria-controls="products-panel" id="products-tab"
+                    data-tab="products">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span>Products</span>
+                </button>
+
+                <button class="tab" role="tab" aria-selected="false" aria-controls="progress-panel" id="progress-tab"
+                    data-tab="progress">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                    <span>Progress</span>
+                </button>
+
+                <button class="tab" role="tab" aria-selected="false" aria-controls="profile-panel" id="profile-tab"
+                    data-tab="profile">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Profile</span>
+                </button>
+            </nav>
+
+            <!-- Tab Panels -->
+            <div class="tab-content">
+
+                <!-- Home Panel -->
+                <div class="tab-panel active" role="tabpanel" id="home-panel" aria-labelledby="home-tab">
+                    <div class="container">
+
+                        <!-- Welcome Section -->
+                        <section class="welcome-section">
+                            <div class="welcome-content">
+                                <span class="dash-label">DASHBOARD</span>
+                                <h2 class="welcome-title">
+                                    Welcome back, <span id="userName" class="user-name-gradient">Friend</span>
+                                    <span class="wave-emoji">👋</span>
+                                </h2>
+                                <p class="welcome-date" id="currentDate"></p>
+                            </div>
+                        </section>
+
+                        <!-- Dashboard Grid -->
+                        <div class="dashboard-grid">
+
+                            <!-- Routine Status Card -->
+                            <div class="dashboard-card routine-status-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Today's Routine</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="routine-progress">
+                                        <div class="routine-time">
+                                            <div class="stat-icon">🌅</div>
+                                            <div class="routine-info">
+                                                <div class="stat-number">Morning</div>
+                                                <div class="stat-label" id="morningStatus">Ready to start</div>
+                                            </div>
+                                            <button class="btn btn-sm btn-primary" id="startMorningBtn">Start</button>
+                                        </div>
+                                        <div class="routine-time">
+                                            <div class="stat-icon">🌙</div>
+                                            <div class="routine-info">
+                                                <div class="stat-number">Evening</div>
+                                                <div class="stat-label" id="eveningStatus">Ready to start</div>
+                                            </div>
+                                            <button class="btn btn-sm btn-secondary" id="startEveningBtn">Start</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Minimalist LCD Clock -->
+                                    <div class="lcd-clock-container">
+                                        <div class="lcd-screen">
+                                            <div class="lcd-time">
+                                                <span id="lcdHours">--</span><span class="lcd-sep">:</span><span
+                                                    id="lcdMinutes">--</span><span class="lcd-sep">:</span><span
+                                                    id="lcdSeconds">--</span>
+                                            </div>
+                                            <div class="lcd-ampm" id="lcdAMPM">--</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Skin Health Score Card -->
+                            <div class="dashboard-card health-score-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Skin Health Score</h3>
+                                    <button class="btn btn-ghost btn-sm" id="updateScoreBtn">Update</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="score-display">
+                                        <div class="score-circle">
+                                            <svg viewBox="0 0 100 100" class="score-svg">
+                                                <defs>
+                                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%"
+                                                        y2="100%">
+                                                        <stop offset="0%"
+                                                            style="stop-color:hsl(340, 75%, 65%);stop-opacity:1" />
+                                                        <stop offset="100%"
+                                                            style="stop-color:hsl(200, 70%, 60%);stop-opacity:1" />
+                                                    </linearGradient>
+                                                </defs>
+                                                <circle cx="50" cy="50" r="45" class="score-bg"></circle>
+                                                <circle cx="50" cy="50" r="45" class="score-fill" id="scoreCircle">
+                                                </circle>
+                                            </svg>
+                                            <div class="score-text">
+                                                <span class="score-number" id="healthScore">--</span>
+                                                <span class="score-label">Daily Score</span>
+                                            </div>
+                                        </div>
+                                        <div class="score-details" id="scoreDetails">
+                                            <p class="text-secondary">Complete your first check-in to see your score</p>
+                                        </div>
+                                        <div class="score-trend-container">
+                                            <div class="trend-header">
+                                                <span>Weekly Trend</span>
+                                                <div class="trend-filters" id="trendFilters">
+                                                    <button class="trend-filter active"
+                                                        data-type="health">Score</button>
+                                                    <button class="trend-filter" data-type="morning">AM</button>
+                                                    <button class="trend-filter" data-type="evening">PM</button>
+                                                </div>
+                                            </div>
+                                            <div id="scoreTrendChart" class="score-trend-chart"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Streak Card -->
+                            <div class="dashboard-card streak-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Routine Streak</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="streak-display">
+                                        <div class="streak-number" id="streakCount">0</div>
+                                        <p class="text-secondary">days in a row</p>
+                                    </div>
+                                    <div class="streak-calendar" id="streakCalendar">
+                                        <!-- Calendar will be populated by JS -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Inventory Card -->
+                            <div class="dashboard-card inventory-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Product Inventory</h3>
+                                    <button class="btn btn-ghost btn-sm" onclick="window.app.switchTab('products')">View
+                                        All</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="inventory-stats">
+                                        <div class="stat-item">
+                                            <div class="stat-icon">📦</div>
+                                            <div>
+                                                <div class="stat-number" id="totalProducts">0</div>
+                                                <div class="stat-label">Total Products</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-item">
+                                            <div class="stat-icon">⚠️</div>
+                                            <div>
+                                                <div class="stat-number" id="expiringProducts">0</div>
+                                                <div class="stat-label">Expiring Soon</div>
+                                            </div>
+                                        </div>
+                                        <div class="stat-item clickable"
+                                            onclick="window.app.showInventoryRoutineBreakdown()" role="button"
+                                            tabindex="0">
+                                            <div class="stat-icon">✅</div>
+                                            <div>
+                                                <div class="stat-number" id="activeProducts">0</div>
+                                                <div class="stat-label">In Routine</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Environmental Factors Card -->
+                            <div class="dashboard-card environment-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Environmental Factors</h3>
+                                    <div class="env-header-actions">
+                                        <button class="btn btn-ghost btn-sm" id="setLocationBtn"
+                                            title="Set manual location">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                                <circle cx="12" cy="10" r="3"></circle>
+                                            </svg>
+                                            Location
+                                        </button>
+                                        <div style="display: flex; align-items: center; gap: var(--space-xs);">
+                                            <span class="badge badge-warning" id="weatherBadge">Loading...</span>
+                                            <button class="btn btn-icon btn-sm" id="refreshWeatherBtn"
+                                                title="Refresh weather">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path d="M23 4v6h-6"></path>
+                                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- In-app Location Search -->
+                                    <div class="location-search-container" id="locationSearchContainer"
+                                        style="display: none;">
+                                        <input type="text" id="locationSearchInput" class="form-control form-control-sm"
+                                            placeholder="Search city...">
+                                        <button class="btn btn-primary btn-sm" id="confirmLocationBtn">OK</button>
+                                    </div>
+                                    <!-- Background Decorative Emojis -->
+                                    <span class="bg-emoji-3" aria-hidden="true">🌡️</span>
+                                    <span class="bg-emoji-4" aria-hidden="true">🌫️</span>
+
+                                    <div class="location-display" id="locationDisplay" style="display: none;">
+                                        <span class="location-dot"></span>
+                                        <span id="locationName">Detecting...</span>
+                                    </div>
+                                    <div class="environment-grid">
+                                        <div class="env-item">
+                                            <span class="env-icon">☀️</span>
+                                            <div>
+                                                <div class="env-label">UV Index</div>
+                                                <div class="env-value" id="uvIndex">--</div>
+                                            </div>
+                                        </div>
+                                        <div class="env-item">
+                                            <span class="env-icon">💧</span>
+                                            <div>
+                                                <div class="env-label">Humidity</div>
+                                                <div class="env-value" id="humidity">--</div>
+                                            </div>
+                                        </div>
+                                        <div class="env-item">
+                                            <span class="env-icon">🌡️</span>
+                                            <div>
+                                                <div class="env-label">Temperature</div>
+                                                <div class="env-value" id="temperature">--</div>
+                                            </div>
+                                        </div>
+                                        <div class="env-item">
+                                            <span class="env-icon">🌫️</span>
+                                            <div>
+                                                <div class="env-label">Air Quality</div>
+                                                <div class="env-value" id="airQuality">--</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="env-recommendation" id="envRecommendation">
+                                        <p class="text-secondary">Loading environmental data...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Upcoming Reminders Card -->
+                            <div class="dashboard-card reminders-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Upcoming Reminders</h3>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Background Decorative Emojis -->
+                                    <span class="bg-emoji-1" aria-hidden="true">⏰</span>
+                                    <span class="bg-emoji-2" aria-hidden="true">🕰️</span>
+
+                                    <div class="reminder-list" id="reminderList">
+                                        <!-- Reminders will be populated by JS -->
+                                    </div>
+                                    <button class="btn btn-secondary btn-sm" id="manageRemindersBtn"
+                                        style="width: 100%; margin-top: var(--space-md);">
+                                        Manage Reminders
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quick Insights Card -->
+                            <div class="dashboard-card insights-card">
+                                <span class="bg-emoji-1" aria-hidden="true">💡</span>
+                                <span class="bg-emoji-2" aria-hidden="true">✨</span>
+                                <div class="card-header">
+                                    <h3 class="card-title">Today's Insights</h3>
+                                </div>
+                                <div class="card-body" id="dailyInsights">
+                                    <div class="insight-loading">
+                                        <div class="spinner"></div>
+                                        <p>Loading your personalized insights...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Progress Summary Card -->
+                            <div class="dashboard-card progress-card">
+                                <span class="bg-emoji-1" aria-hidden="true">📊</span>
+                                <span class="bg-emoji-2" aria-hidden="true">🌟</span>
+                                <div class="card-header">
+                                    <h3 class="card-title">Progress Summary</h3>
+                                    <button class="btn btn-ghost btn-sm" onclick="app.switchTab('progress')">View
+                                        Details</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="progress-stats">
+                                        <div class="progress-stat">
+                                            <div class="progress-stat-label">Photos Logged</div>
+                                            <div class="progress-stat-value" id="photoCount">0</div>
+                                        </div>
+                                        <div class="progress-stat">
+                                            <div class="progress-stat-label">Days Tracked</div>
+                                            <div class="progress-stat-value" id="daysTracked">0</div>
+                                        </div>
+                                        <div class="progress-stat">
+                                            <div class="progress-stat-label">Improvement</div>
+                                            <div class="progress-stat-value improvement" id="improvement">--</div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" style="width: 100%; margin-top: var(--space-md);"
+                                        data-action="log-skin">
+                                        📸 Log Today's Skin
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Routine Panel -->
+                <div class="tab-panel" role="tabpanel" id="routine-panel" aria-labelledby="routine-tab">
+                    <div class="container">
+                        <h2>My Skincare Routine</h2>
+                        <p class="text-secondary">Build and manage your personalized AM and PM routines</p>
+
+                        <!-- Routine Tabs -->
+                        <div class="routine-tabs">
+                            <div class="routine-tab active" data-routine="morning">
+                                <div class="routine-tab-icon">🌅</div>
+                                <div class="routine-tab-title">Morning Routine</div>
+                                <div class="routine-tab-subtitle">Protect & Prep</div>
+                            </div>
+                            <div class="routine-tab" data-routine="evening">
+                                <div class="routine-tab-icon">🌙</div>
+                                <div class="routine-tab-title">Evening Routine</div>
+                                <div class="routine-tab-subtitle">Repair & Restore</div>
+                            </div>
+                        </div>
+
+                        <!-- Layering Guide -->
+                        <div class="layering-guide">
+                            <div class="layering-guide-header" id="layeringGuideToggle">
+                                <h4>
+                                    <span class="layering-guide-icon">💡</span>
+                                    Layering Guide
+                                </h4>
+                                <button class="layering-guide-toggle-btn" aria-label="Toggle layering guide">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" class="chevron-icon">
+                                        <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="layering-guide-content" id="layeringGuideContent">
+                                <p class="text-secondary"
+                                    style="margin-bottom: var(--space-md); font-size: var(--font-size-sm);">
+                                    Apply products from thinnest to thickest consistency for best absorption
+                                </p>
+                                <div class="layering-order" id="layeringOrder">
+                                    <!-- Dynamically populated based on products in routine -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Morning Routine Builder -->
+                        <div class="routine-builder active" id="morningRoutine">
+                            <div class="routine-header">
+                                <div class="routine-info">
+                                    <div class="routine-info-icon">🌅</div>
+                                    <div class="routine-info-text">
+                                        <h3>Morning Routine</h3>
+                                        <p>Focus on protection and hydration</p>
+                                    </div>
+                                </div>
+                                <div class="routine-header-buttons">
+                                    <button class="btn btn-start" id="startMorningRoutine">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                        </svg>
+                                        Start Routine
+                                    </button>
+                                    <button class="btn btn-primary" id="addMorningProduct">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        Add Product
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="routine-steps" id="morningSteps">
+                                <!-- Steps will be populated by JS -->
+                            </div>
+
+                            <div class="routine-summary">
+                                <h4>Routine Summary</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="morningStepCount">0</div>
+                                        <div class="summary-stat-label">Steps</div>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="morningDuration">~0 min</div>
+                                        <div class="summary-stat-label">Est. Time</div>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="morningWaitTime">0 min</div>
+                                        <div class="summary-stat-label">Wait Time</div>
+                                    </div>
+                                    <div class="summary-stat summary-stat-clickable"
+                                        onclick="routineManager.toggleActiveIngredientsBreakdown('morning')">
+                                        <div class="summary-stat-value" id="morningActives">0</div>
+                                        <div class="summary-stat-label">Active Ingredients</div>
+                                        <div class="summary-stat-hint">Click to expand</div>
+                                    </div>
+                                </div>
+
+                                <!-- Active Ingredients Breakdown (Inline) -->
+                                <div class="active-ingredients-breakdown collapsed" id="morningActiveBreakdown">
+                                    <div class="breakdown-header">
+                                        <h4>Active Ingredients Breakdown</h4>
+                                        <button class="breakdown-close"
+                                            onclick="routineManager.toggleActiveIngredientsBreakdown('morning')"
+                                            aria-label="Close">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="breakdown-content" id="morningActiveContent">
+                                        <!-- Content will be populated by JS -->
+                                    </div>
+                                </div>
+
+                                <div class="next-routine-countdown" id="morningNextRoutine">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Next routine in...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Evening Routine Builder -->
+                        <div class="routine-builder" id="eveningRoutine">
+                            <div class="routine-header">
+                                <div class="routine-info">
+                                    <div class="routine-info-icon">🌙</div>
+                                    <div class="routine-info-text">
+                                        <h3>Evening Routine</h3>
+                                        <p>Focus on repair and treatment</p>
+                                    </div>
+                                </div>
+                                <div class="routine-header-buttons">
+                                    <button class="btn btn-start" id="startEveningRoutine">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                        </svg>
+                                        Start Routine
+                                    </button>
+                                    <button class="btn btn-primary" id="addEveningProduct">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2">
+                                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        </svg>
+                                        Add Product
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="routine-steps" id="eveningSteps">
+                                <!-- Steps will be populated by JS -->
+                            </div>
+
+                            <div class="routine-summary">
+                                <h4>Routine Summary</h4>
+                                <div class="summary-stats">
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="eveningStepCount">0</div>
+                                        <div class="summary-stat-label">Steps</div>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="eveningDuration">~0 min</div>
+                                        <div class="summary-stat-label">Est. Time</div>
+                                    </div>
+                                    <div class="summary-stat">
+                                        <div class="summary-stat-value" id="eveningWaitTime">0 min</div>
+                                        <div class="summary-stat-label">Wait Time</div>
+                                    </div>
+                                    <div class="summary-stat summary-stat-clickable"
+                                        onclick="routineManager.toggleActiveIngredientsBreakdown('evening')">
+                                        <div class="summary-stat-value" id="eveningActives">0</div>
+                                        <div class="summary-stat-label">Active Ingredients</div>
+                                        <div class="summary-stat-hint">Click to expand</div>
+                                    </div>
+                                </div>
+
+                                <!-- Active Ingredients Breakdown (Inline) -->
+                                <div class="active-ingredients-breakdown collapsed" id="eveningActiveBreakdown">
+                                    <div class="breakdown-header">
+                                        <h4>Active Ingredients Breakdown</h4>
+                                        <button class="breakdown-close"
+                                            onclick="routineManager.toggleActiveIngredientsBreakdown('evening')"
+                                            aria-label="Close">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2">
+                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="breakdown-content" id="eveningActiveContent">
+                                        <!-- Content will be populated by JS -->
+                                    </div>
+                                </div>
+
+                                <div class="next-routine-countdown" id="eveningNextRoutine">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Next routine in...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Routine Timer Overlay -->
+                    <div class="routine-timer-overlay" id="routineTimerOverlay">
+                        <div class="routine-timer-content">
+                            <!-- Preparation Countdown -->
+                            <div class="timer-preparation" id="timerPreparation">
+                                <h2>Get Ready!</h2>
+                                <div class="countdown-circle">
+                                    <div class="countdown-number" id="preparationCountdown">5</div>
+                                </div>
+                                <p>Your routine will begin in...</p>
+                            </div>
+
+                            <!-- Active Step Timer -->
+                            <div class="timer-active hidden" id="timerActive">
+                                <div class="timer-step-info">
+                                    <div class="timer-step-number" id="timerStepNumber">Step 1/3</div>
+                                    <h3 id="timerStepName">Cleanser</h3>
+                                    <p id="timerStepInstructions">Massage gently for 60 seconds</p>
+                                </div>
+
+                                <div class="timer-circle-container">
+                                    <svg class="timer-circle-svg" viewBox="0 0 200 200">
+                                        <defs>
+                                            <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%"
+                                                    style="stop-color:var(--color-primary);stop-opacity:1" />
+                                                <stop offset="100%"
+                                                    style="stop-color:var(--color-secondary);stop-opacity:1" />
+                                            </linearGradient>
+                                        </defs>
+                                        <circle class="timer-circle-bg" cx="100" cy="100" r="90"></circle>
+                                        <circle class="timer-circle-progress" id="timerCircleProgress" cx="100" cy="100"
+                                            r="90"></circle>
+                                    </svg>
+                                    <div class="timer-time" id="timerTime">1:00</div>
+                                </div>
+
+                                <div class="timer-controls">
+                                    <button class="btn-timer btn-timer-pause" id="btnTimerPause">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="6" y="4" width="4" height="16"></rect>
+                                            <rect x="14" y="4" width="4" height="16"></rect>
+                                        </svg>
+                                        Pause
+                                    </button>
+                                    <button class="btn-timer btn-timer-stop" id="btnTimerStop">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <rect x="6" y="6" width="12" height="12"></rect>
+                                        </svg>
+                                        Stop
+                                    </button>
+                                </div>
+
+                                <div class="timer-wait-notice hidden" id="timerWaitNotice">
+                                    <p>⏱️ Wait time: <strong id="timerWaitTime">5 min</strong></p>
+                                    <p class="text-secondary">Let the product absorb before continuing</p>
+                                </div>
+                            </div>
+
+                            <!-- Completion Message -->
+                            <div class="timer-complete hidden" id="timerComplete">
+                                <div class="timer-complete-icon">✨</div>
+                                <h2>Routine Complete!</h2>
+                                <p>Great job! Your skin will thank you.</p>
+                                <button class="btn btn-start" id="btnTimerClose">Done</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Products Panel -->
+                <div class="tab-panel" role="tabpanel" id="products-panel" aria-labelledby="products-tab">
+                    <div class="container">
+                        <h2>Digital Shelf</h2>
+                        <p class="text-secondary">Your skincare product library</p>
+                        <div id="productsContent">
+                            <!-- Digital shelf will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Panel -->
+                <div class="tab-panel" role="tabpanel" id="progress-panel" aria-labelledby="progress-tab">
+                    <div class="container">
+                        <h2>Skin Diary</h2>
+                        <p class="text-secondary">Track your skin journey</p>
+                        <div id="progressContent">
+                            <!-- Progress tracker will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Panel -->
+                <div class="tab-panel" role="tabpanel" id="profile-panel" aria-labelledby="profile-tab">
+                    <div class="container">
+                        <h2>Profile & Settings</h2>
+                        <p class="text-secondary">Manage your preferences</p>
+                        <div id="profileContent">
+                            <!-- Profile settings will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal" role="dialog" aria-labelledby="settingsModalTitle" aria-modal="true">
+            <div class="modal-header">
+                <h3 class="modal-title" id="settingsModalTitle">Accessibility Settings</h3>
+                <button class="btn btn-icon" id="closeSettings" aria-label="Close settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label class="form-label" for="themeSelect">Theme</label>
+                    <select class="form-select" id="themeSelect">
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="high-contrast">High Contrast</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="fontSizeSelect">Font Size</label>
+                    <select class="form-select" id="fontSizeSelect">
+                        <option value="normal">Normal</option>
+                        <option value="small">Small</option>
+                        <option value="large">Large</option>
+                        <option value="xlarge">Extra Large</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="reducedMotion"> Reduce Motion
+                    </label>
+                    <p class="form-help">Minimize animations and transitions</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" id="voiceGuideEnabled"> Enable Voice Guide
+                    </label>
+                    <p class="form-help">Hear step-by-step routine instructions</p>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="voiceRate">Voice Speed</label>
+                    <input type="range" id="voiceRate" min="0.5" max="2" step="0.1" value="1">
+                    <p class="form-help">Adjust speech rate (0.5x to 2x)</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelSettings">Cancel</button>
+                <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal-overlay product-modal" id="productModal">
+        <div class="modal" role="dialog" aria-labelledby="productModalTitle" aria-modal="true">
+            <div class="modal-header">
+                <h3 class="modal-title" id="productModalTitle">Add Product</h3>
+                <button class="btn btn-icon" id="closeProductModal" aria-label="Close product modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Photo Upload Section -->
+                <div class="photo-upload-section">
+                    <label class="form-label">Product Photo</label>
+
+                    <!-- Upload Area -->
+                    <div class="photo-upload-area" id="photoUploadArea">
+                        <svg class="photo-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <div class="photo-upload-text">
+                            <h4>Click to upload or drag and drop</h4>
+                            <p>PNG, JPG up to 10MB</p>
+                        </div>
+                    </div>
+
+                    <!-- Photo Preview -->
+                    <div class="photo-preview" id="photoPreview" style="display: none;">
+                        <img id="photoPreviewImg" src="" alt="Product photo preview">
+                        <div class="photo-preview-actions">
+                            <button class="btn btn-icon" id="removePhotoBtn" title="Remove photo">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path
+                                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <input type="file" id="productPhoto" accept="image/*">
+                </div>
+
+                <form id="productForm" class="product-form">
+
+                    <!-- Product Name (Required) -->
+                    <div class="form-group">
+                        <label class="form-label" for="productName">Product Name *</label>
+                        <input type="text" id="productName" class="form-input" placeholder="e.g., Hydrating Cleanser"
+                            required>
+                    </div>
+
+                    <!-- Brand and Category -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="productBrand">Brand</label>
+                            <input type="text" id="productBrand" class="form-input" placeholder="e.g., CeraVe">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="productCategory">Category</label>
+                            <select id="productCategory" class="form-select">
+                                <option value="">Select category</option>
+                                <option value="Cleanser">Cleanser</option>
+                                <option value="Toner">Toner</option>
+                                <option value="Essence">Essence</option>
+                                <option value="Serum">Serum</option>
+                                <option value="Moisturizer">Moisturizer</option>
+                                <option value="Sunscreen">Sunscreen</option>
+                                <option value="Eye Cream">Eye Cream</option>
+                                <option value="Face Mask">Face Mask</option>
+                                <option value="Exfoliator">Exfoliator</option>
+                                <option value="Treatment">Treatment</option>
+                                <option value="Face Oil">Face Oil</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Purchase and Expiry Dates -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="productPurchaseDate">Purchase Date</label>
+                            <input type="date" id="productPurchaseDate" class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="productExpiryDate">Expiry Date</label>
+                            <input type="date" id="productExpiryDate" class="form-input">
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group">
+                        <label class="form-label" for="productNotes">Notes</label>
+                        <textarea id="productNotes" class="form-input" rows="3"
+                            placeholder="Add any notes about this product..."></textarea>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelProductModal">Cancel</button>
+                <button class="btn btn-primary" id="saveProductBtn">Save Product</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skin Profile Edit Modal -->
+    <div class="modal-overlay" id="skinProfileModal">
+        <div class="modal" role="dialog" aria-labelledby="skinProfileModalTitle" aria-modal="true">
+            <div class="modal-header">
+                <h3 class="modal-title" id="skinProfileModalTitle">Edit Skin Profile</h3>
+                <button class="btn btn-icon" id="closeSkinProfileModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="skinProfileForm">
+                    <div class="form-group">
+                        <label class="form-label">Skin Type</label>
+                        <select id="editSkinType" class="form-select">
+                            <option value="dry">Dry</option>
+                            <option value="oily">Oily</option>
+                            <option value="combination">Combination</option>
+                            <option value="normal">Normal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Skin Concerns</label>
+                        <div class="checkbox-group grid-2">
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns" value="acne">
+                                <span>Acne</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns" value="aging">
+                                <span>Aging</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns"
+                                    value="hyperpigmentation"> <span>Dark Spots</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns"
+                                    value="sensitivity"> <span>Sensitivity</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns" value="dullness">
+                                <span>Dullness</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editConcerns" value="pores">
+                                <span>Pores</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Goals</label>
+                        <div class="checkbox-group grid-2">
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="clear-skin">
+                                <span>Clear Skin</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="hydration">
+                                <span>Hydration</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="anti-aging">
+                                <span>Anti-aging</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="glow">
+                                <span>Glow</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="even-tone">
+                                <span>Even Tone</span></label>
+                            <label class="checkbox-label"><input type="checkbox" name="editGoals" value="consistency">
+                                <span>Consistency</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="editSensitivity">Sensitivity Level</label>
+                        <select id="editSensitivity" class="form-select">
+                            <option value="None">None</option>
+                            <option value="Mild">Mild</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelSkinProfileModal">Cancel</button>
+                <button class="btn btn-primary" id="saveSkinProfileBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Routine Modal -->
+    <div class="modal-overlay" id="addToRoutineModal">
+        <div class="modal routine-selection-modal" role="dialog" aria-labelledby="addToRoutineModalTitle"
+            aria-modal="true">
+            <div class="modal-header">
+                <h3 class="modal-title" id="addToRoutineModalTitle">Add to Routine</h3>
+                <button class="btn btn-icon" id="closeAddToRoutineModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="text-secondary" style="margin-bottom: var(--space-lg);" id="routineProductName">Select which
+                    routine to add this product to:</p>
+
+                <div class="routine-selection-options">
+                    <button class="routine-option morning-option" data-routine="morning">
+                        <div class="routine-option-icon">🌅</div>
+                        <div class="routine-option-content">
+                            <h4>Morning Routine</h4>
+                            <p>Protect & Prep</p>
+                        </div>
+                    </button>
+
+                    <button class="routine-option evening-option" data-routine="evening">
+                        <div class="routine-option-icon">🌙</div>
+                        <div class="routine-option-content">
+                            <h4>Evening Routine</h4>
+                            <p>Repair & Restore</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Before & After Comparison Modal -->
+    <div class="modal-overlay comparison-modal" id="comparisonModal">
+        <!-- ... existing comparison modal content ... -->
+    </div>
+
+    <!-- Routine Breakdown Modal -->
+    <div class="modal-overlay" id="routineBreakdownModal">
+        <div class="modal stats-breakdown-modal" role="dialog" aria-labelledby="routineBreakdownTitle"
+            aria-modal="true">
+            <div class="modal-header">
+                <h3 class="modal-title" id="routineBreakdownTitle">Routine Breakdown</h3>
+                <button class="btn btn-icon" id="closeRoutineBreakdownModal" aria-label="Close modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="routine-breakdown-list">
+                    <div class="routine-breakdown-item">
+                        <div class="routine-breakdown-info">
+                            <span class="routine-breakdown-icon">🌅</span>
+                            <div class="routine-breakdown-text">
+                                <h4>Morning Routine</h4>
+                                <p>Protection & Glow</p>
+                            </div>
+                        </div>
+                        <div class="routine-breakdown-count morning" id="breakdownMorningCount">0</div>
+                    </div>
+
+                    <div class="routine-breakdown-item">
+                        <div class="routine-breakdown-info">
+                            <span class="routine-breakdown-icon">🌙</span>
+                            <div class="routine-breakdown-text">
+                                <h4>Evening Routine</h4>
+                                <p>Repair & Regrow</p>
+                            </div>
+                        </div>
+                        <div class="routine-breakdown-count evening" id="breakdownEveningCount">0</div>
+                    </div>
+                </div>
+
+                <p class="text-secondary"
+                    style="margin-top: var(--space-lg); font-size: var(--font-size-xs); text-align: center;">
+                    You have a total of <span id="breakdownTotalCount">0</span> unique products active in your routines.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary w-full" id="closeBreakdownFooter">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Scripts -->
+    <!-- Face Detection Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+
+    <!-- Firebase SDKs (compat mode for easier integration) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
+    <!-- Firebase Configuration and Services -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/firebase-storage.js"></script>
+    <script src="js/app-auth.js"></script>
+
+    <!-- App Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage-manager.js"></script>
+    <script src="js/accessibility-manager.js"></script>
+    <script src="js/routine-manager.js"></script>
+    <script src="js/product-manager.js"></script>
+    <script src="js/progress-manager.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Manage Reminder Modal Overlay -->
+    <div id="reminderModalOverlay" class="modal-overlay">
+        <div id="reminderModal" class="dashboard-card" style="width: 100%; max-width: 400px; padding: 0; margin: auto;">
+            <div class="card-header"
+                style="padding: var(--space-lg); border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center;">
+                <h3 class="card-title" id="reminderModalTitle" style="margin: 0;">Add Reminder</h3>
+                <button class="close-modal"
+                    style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--color-text-secondary);">&times;</button>
+            </div>
+            <div class="card-body" style="padding: var(--space-lg);">
+                <form id="reminderForm">
+                    <input type="hidden" id="reminderId">
+                    <div class="form-group">
+                        <label for="reminderTime" class="form-label">Time</label>
+                        <input type="time" id="reminderTime" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminderText" class="form-label">Reminder</label>
+                        <input type="text" id="reminderText" class="form-input" placeholder="e.g. Morning Routine"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminderFrequency" class="form-label">Frequency</label>
+                        <select id="reminderFrequency" class="form-select">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="once">Once</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Save Reminder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

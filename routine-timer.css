@@ -1,0 +1,376 @@
+/* ========================================
+   Routine Timer Styles
+   ======================================== */
+
+/* Button container */
+.routine-header-buttons {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Start Routine Button */
+.btn-start {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-start:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+.btn-start:active {
+    transform: translateY(0);
+}
+
+.btn-start svg {
+    flex-shrink: 0;
+}
+
+/* Timer Overlay */
+.routine-timer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.routine-timer-overlay.active {
+    display: flex;
+}
+
+.routine-timer-content {
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    color: white;
+}
+
+/* Preparation Countdown */
+.timer-preparation {
+    animation: scaleIn 0.3s ease;
+}
+
+.timer-preparation h2 {
+    font-size: 2rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+    /* Fallback */
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.countdown-circle {
+    width: 200px;
+    height: 200px;
+    margin: var(--space-xl) auto;
+    border-radius: 50%;
+    background: linear-gradient(135deg, hsla(340, 75%, 65%, 0.2), hsla(200, 70%, 60%, 0.2));
+    border: 4px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: pulse 1s ease infinite;
+}
+
+.countdown-number {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    /* Fallback */
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+/* Active Step Timer */
+.timer-active {
+    animation: scaleIn 0.3s ease;
+}
+
+.timer-step-info {
+    margin-bottom: var(--space-xl);
+}
+
+.timer-step-number {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.timer-step-info h3 {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+    color: var(--color-primary);
+    /* Fallback */
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.timer-step-info p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* Timer Circle */
+.timer-circle-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: var(--space-xl) auto;
+}
+
+.timer-circle-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.timer-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 8;
+}
+
+.timer-circle-progress {
+    fill: none;
+    stroke: url(#timerGradient);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 565.48;
+    /* 2 * PI * 90 */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.timer-time {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+}
+
+/* Timer Controls */
+.timer-controls {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    margin-top: var(--space-xl);
+}
+
+.btn-timer {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    transition: all 0.2s ease;
+}
+
+.btn-timer:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-timer-pause {
+    border-color: var(--color-warning);
+}
+
+.btn-timer-pause:hover {
+    background: hsla(35, 90%, 60%, 0.2);
+}
+
+.btn-timer-stop {
+    border-color: var(--color-danger);
+}
+
+.btn-timer-stop:hover {
+    background: hsla(0, 75%, 60%, 0.2);
+}
+
+/* Wait Notice */
+.timer-wait-notice {
+    margin-top: var(--space-xl);
+    padding: var(--space-md);
+    background: hsla(35, 90%, 60%, 0.1);
+    border: 1px solid var(--color-warning);
+    border-radius: var(--radius-md);
+    animation: slideUp 0.3s ease;
+}
+
+.timer-wait-notice p {
+    margin: var(--space-xs) 0;
+}
+
+/* Completion */
+.timer-complete {
+    animation: scaleIn 0.5s ease;
+}
+
+.timer-complete-icon {
+    font-size: 5rem;
+    margin-bottom: var(--space-lg);
+    animation: bounce 1s ease infinite;
+}
+
+.timer-complete h2 {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-md);
+    color: var(--color-primary);
+    /* Fallback */
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.timer-complete p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-xl);
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Active Step Highlight */
+.routine-step.timer-active-step {
+    background: linear-gradient(135deg, hsla(340, 75%, 65%, 0.2), hsla(200, 70%, 60%, 0.2));
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 16px hsla(340, 75%, 65%, 0.3);
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 16px hsla(340, 75%, 65%, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 4px 24px hsla(340, 75%, 65%, 0.5);
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hidden Utility */
+.hidden {
+    display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .routine-header-buttons {
+        flex-direction: column;
+    }
+
+    .btn-start,
+    .btn-primary {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .timer-circle-container {
+        width: 200px;
+        height: 200px;
+    }
+
+    .timer-time {
+        font-size: 2.5rem;
+    }
+
+    .timer-preparation h2,
+    .timer-step-info h3 {
+        font-size: 1.5rem;
+    }
+}

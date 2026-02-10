@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign in to DearSkin - Your caring skincare companion">
+    <title>Sign In - DearSkin</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg,
+                    hsl(340, 75%, 65%) 0%,
+                    hsl(200, 70%, 60%) 100%);
+            padding: var(--space-lg);
+        }
+
+        .auth-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+            text-align: center;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .auth-logo {
+            font-family: var(--font-display);
+            font-size: var(--font-size-3xl);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+        }
+
+        .auth-subtitle {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+
+        .auth-body {
+            padding: var(--space-xl);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+            background: var(--color-background);
+            padding: var(--space-xs);
+            border-radius: var(--radius-lg);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .auth-tab.active {
+            background: var(--color-surface);
+            color: var(--color-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: var(--space-md);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            transition: all var(--transition-base);
+            background: var(--color-background);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-light);
+        }
+
+        .btn {
+            width: 100%;
+            padding: var(--space-md);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-google {
+            background: white;
+            color: var(--color-text-primary);
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-top: var(--space-md);
+        }
+
+        .btn-google:hover {
+            background: var(--color-background);
+            border-color: var(--color-primary);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: var(--space-lg) 0;
+            color: var(--color-text-secondary);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .divider span {
+            padding: 0 var(--space-sm);
+            font-size: var(--font-size-sm);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: var(--space-sm);
+        }
+
+        .forgot-password a {
+            color: var(--color-primary);
+            font-size: var(--font-size-sm);
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .auth-footer a {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .error-message {
+            background: var(--color-danger-light);
+            color: var(--color-danger);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-sm);
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-card {
+                max-width: 100%;
+            }
+
+            .auth-body {
+                padding: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="light">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-logo">DearSkin</h1>
+                <p class="auth-subtitle">Your caring skincare companion</p>
+            </div>
+
+            <div class="auth-body">
+                <!-- Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="signin">Sign In</button>
+                    <button class="auth-tab" data-tab="signup">Sign Up</button>
+                </div>
+
+                <!-- Sign In Form -->
+                <form class="auth-form active" id="signinForm">
+                    <div class="error-message" id="signinError"></div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signin-email">Email</label>
+                        <input type="email" id="signin-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signin-password">Password</label>
+                        <input type="password" id="signin-password" class="form-input" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="#" id="forgotPasswordLink">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="signinBtn">
+                        Sign In
+                    </button>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <button type="button" class="btn btn-google" id="googleSigninBtn">
+                        <svg width="18" height="18" viewBox="0 0 18 18">
+                            <path fill="#4285F4"
+                                d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" />
+                            <path fill="#34A853"
+                                d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" />
+                            <path fill="#FBBC05"
+                                d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" />
+                            <path fill="#EA4335"
+                                d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z" />
+                        </svg>
+                        Continue with Google
+                    </button>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form class="auth-form" id="signupForm">
+                    <div class="error-message" id="signupError"></div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="form-input" placeholder="Jane Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-email">Email</label>
+                        <input type="email" id="signup-email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-input" placeholder="••••••••" required
+                            minlength="6">
+                        <small style="color: var(--color-text-secondary); margin-top: var(--space-xs); display: block;">
+                            At least 6 characters
+                        </small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="signupBtn">
+                        Create Account
+                    </button>
+
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+
+                    <button type="button" class="btn btn-google" id="googleSignupBtn">
+                        <svg width="18" height="18" viewBox="0 0 18 18">
+                            <path fill="#4285F4"
+                                d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18z" />
+                            <path fill="#34A853"
+                                d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17z" />
+                            <path fill="#FBBC05"
+                                d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07z" />
+                            <path fill="#EA4335"
+                                d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3z" />
+                        </svg>
+                        Sign up with Google
+                    </button>
+                </form>
+
+                <!-- Footer -->
+                <div class="auth-footer">
+                    <p style="color: var(--color-text-secondary); font-size: var(--font-size-sm);">
+                        Already have an account? <a href="#" class="switch-tab" data-tab="signin">Sign in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/firebase-auth.js"></script>
+
+    <!-- Utilities -->
+    <script src="js/utils.js"></script>
+
+    <!-- Auth Logic -->
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

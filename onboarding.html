@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to DearSkin</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="onboarding-styles.css">
+</head>
+
+<body data-theme="light">
+
+    <div class="onboarding-container">
+
+        <!-- Progress Bar -->
+        <div class="onboarding-progress">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+            </div>
+            <p class="progress-text" id="progressText">Step 1 of 5</p>
+        </div>
+
+        <!-- Step 1: Welcome -->
+        <div class="onboarding-step active" id="step1">
+            <div class="step-content">
+                <div class="welcome-animation">
+                    <div class="welcome-icon">✨</div>
+                </div>
+                <h1>Welcome to <span class="gradient-text">DearSkin</span></h1>
+                <p class="subtitle">Your caring skincare companion</p>
+                <p>We're here to help you build a consistent, personalized skincare routine that works for <em>you</em>.
+                </p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-icon">🎯</span>
+                        <div>
+                            <h3>Personalized Routines</h3>
+                            <p>Custom AM/PM routines based on your skin type and goals</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">🔬</span>
+                        <div>
+                            <h3>Ingredient Intelligence</h3>
+                            <p>Detect conflicts and get safety warnings</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">📊</span>
+                        <div>
+                            <h3>Progress Tracking</h3>
+                            <p>Visual diary with fuzzy logic skin scoring</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-icon">♿</span>
+                        <div>
+                            <h3>Fully Accessible</h3>
+                            <p>Voice guide, high contrast, and screen reader support</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-lg" onclick="onboarding.nextStep()">Get Started</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Basic Info -->
+        <div class="onboarding-step" id="step2">
+            <div class="step-content">
+                <h2>Let's get to know you</h2>
+                <p class="subtitle">Tell us a bit about yourself</p>
+
+                <form id="basicInfoForm" class="onboarding-form">
+                    <div class="form-group">
+                        <label class="form-label" for="userName">What should we call you?</label>
+                        <input type="text" id="userName" class="form-input" placeholder="Your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="userAge">Age range</label>
+                        <select id="userAge" class="form-select" required>
+                            <option value="">Select age range</option>
+                            <option value="18-24">18-24</option>
+                            <option value="25-34">25-34</option>
+                            <option value="35-44">35-44</option>
+                            <option value="45-54">45-54</option>
+                            <option value="55+">55+</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">How would you describe your current skincare knowledge?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="knowledge" value="beginner" required>
+                                <span>Beginner - Just getting started</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="knowledge" value="intermediate">
+                                <span>Intermediate - I know the basics</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="knowledge" value="advanced">
+                                <span>Advanced - I'm a skincare enthusiast</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="step-actions">
+                    <button class="btn btn-secondary" onclick="onboarding.prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="onboarding.nextStep()">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Skin Assessment -->
+        <div class="onboarding-step" id="step3">
+            <div class="step-content">
+                <h2>Understanding your skin</h2>
+                <p class="subtitle">Help us create your personalized profile</p>
+
+                <form id="skinAssessmentForm" class="onboarding-form">
+                    <div class="form-group">
+                        <label class="form-label">What's your skin type?</label>
+                        <div class="card-select">
+                            <label class="card-select-item">
+                                <input type="radio" name="skinType" value="dry" required>
+                                <div class="card-select-content">
+                                    <span class="card-select-icon">🏜️</span>
+                                    <h4>Dry</h4>
+                                    <p>Tight, flaky, or rough texture</p>
+                                </div>
+                            </label>
+                            <label class="card-select-item">
+                                <input type="radio" name="skinType" value="oily">
+                                <div class="card-select-content">
+                                    <span class="card-select-icon">✨</span>
+                                    <h4>Oily</h4>
+                                    <p>Shiny, enlarged pores</p>
+                                </div>
+                            </label>
+                            <label class="card-select-item">
+                                <input type="radio" name="skinType" value="combination">
+                                <div class="card-select-content">
+                                    <span class="card-select-icon">🌓</span>
+                                    <h4>Combination</h4>
+                                    <p>Oily T-zone, dry cheeks</p>
+                                </div>
+                            </label>
+                            <label class="card-select-item">
+                                <input type="radio" name="skinType" value="normal">
+                                <div class="card-select-content">
+                                    <span class="card-select-icon">😊</span>
+                                    <h4>Normal</h4>
+                                    <p>Balanced, not too oily or dry</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What are your main skin concerns? (Select all that apply)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="acne">
+                                <span>Acne / Breakouts</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="aging">
+                                <span>Fine Lines / Aging</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="hyperpigmentation">
+                                <span>Dark Spots / Hyperpigmentation</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="sensitivity">
+                                <span>Sensitivity / Redness</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="dullness">
+                                <span>Dullness / Uneven Texture</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="concerns" value="pores">
+                                <span>Large Pores</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="step-actions">
+                    <button class="btn btn-secondary" onclick="onboarding.prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="onboarding.nextStep()">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Lifestyle Factors -->
+        <div class="onboarding-step" id="step4">
+            <div class="step-content">
+                <h2>Lifestyle & Environment</h2>
+                <p class="subtitle">These factors affect your skin too</p>
+
+                <form id="lifestyleForm" class="onboarding-form">
+                    <div class="form-group">
+                        <label class="form-label">How would you rate your stress levels?</label>
+                        <div class="slider-group">
+                            <input type="range" id="stressLevel" min="1" max="5" value="3" class="form-slider">
+                            <div class="slider-labels">
+                                <span>Low</span>
+                                <span>Moderate</span>
+                                <span>High</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">How many hours of sleep do you typically get?</label>
+                        <select id="sleepHours" class="form-select">
+                            <option value="<5">Less than 5 hours</option>
+                            <option value="5-6">5-6 hours</option>
+                            <option value="7-8" selected>7-8 hours</option>
+                            <option value="9+">9+ hours</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">How often do you drink water throughout the day?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="hydration" value="low">
+                                <span>Rarely (1-3 glasses)</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="hydration" value="moderate" checked>
+                                <span>Moderate (4-6 glasses)</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="hydration" value="high">
+                                <span>Well hydrated (7+ glasses)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What's your climate like?</label>
+                        <select id="climate" class="form-select">
+                            <option value="">Select climate</option>
+                            <option value="humid">Humid / Tropical</option>
+                            <option value="dry">Dry / Arid</option>
+                            <option value="temperate">Temperate / Moderate</option>
+                            <option value="cold">Cold / Dry</option>
+                        </select>
+                    </div>
+                </form>
+
+                <div class="step-actions">
+                    <button class="btn btn-secondary" onclick="onboarding.prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="onboarding.nextStep()">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Goals & Preferences -->
+        <div class="onboarding-step" id="step5">
+            <div class="step-content">
+                <h2>Your skincare goals</h2>
+                <p class="subtitle">What does success look like for you?</p>
+
+                <form id="goalsForm" class="onboarding-form">
+                    <div class="form-group">
+                        <label class="form-label">What are your main goals? (Select up to 3)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="clear-skin">
+                                <span>Clear, acne-free skin</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="hydration">
+                                <span>Better hydration</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="anti-aging">
+                                <span>Reduce signs of aging</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="glow">
+                                <span>Healthy, glowing skin</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="even-tone">
+                                <span>Even skin tone</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="goals" value="consistency">
+                                <span>Build a consistent routine</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">When do you prefer to do your skincare routine?</label>
+                        <div class="time-preference">
+                            <div class="time-option">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="routineTime" value="morning" checked>
+                                    <span>🌅 Morning (6-9 AM)</span>
+                                </label>
+                            </div>
+                            <div class="time-option">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="routineTime" value="evening" checked>
+                                    <span>🌙 Evening (9-11 PM)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="enableNotifications" checked>
+                            Enable gentle reminders for my routine
+                        </label>
+                        <p class="form-help">We'll send smart notifications based on your habits</p>
+                    </div>
+                </form>
+
+                <div class="step-actions">
+                    <button class="btn btn-secondary" onclick="onboarding.prevStep()">Back</button>
+                    <button class="btn btn-primary btn-lg" onclick="onboarding.complete()">Complete Setup</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="js/firebase-config.js"></script>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage-manager.js"></script>
+    <script src="onboarding.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,256 @@
+{
+    "ingredients": [
+        {
+            "id": "retinol",
+            "name": "Retinol",
+            "category": "active",
+            "benefits": [
+                "Anti-aging",
+                "Acne treatment",
+                "Texture improvement"
+            ],
+            "concerns": [
+                "Can cause irritation",
+                "Photosensitivity"
+            ],
+            "conflicts": [
+                "vitamin-c",
+                "aha",
+                "bha",
+                "benzoyl-peroxide"
+            ],
+            "usage": "PM only",
+            "frequency": "Start 2-3x per week, build up to daily",
+            "phRange": null
+        },
+        {
+            "id": "vitamin-c",
+            "name": "Vitamin C (L-Ascorbic Acid)",
+            "category": "active",
+            "benefits": [
+                "Brightening",
+                "Antioxidant",
+                "Collagen production"
+            ],
+            "concerns": [
+                "Can oxidize",
+                "May irritate sensitive skin"
+            ],
+            "conflicts": [
+                "retinol",
+                "niacinamide",
+                "aha",
+                "bha"
+            ],
+            "usage": "AM preferred",
+            "frequency": "Daily",
+            "phRange": "2.0-3.5"
+        },
+        {
+            "id": "niacinamide",
+            "name": "Niacinamide",
+            "category": "active",
+            "benefits": [
+                "Pore minimizing",
+                "Oil control",
+                "Brightening"
+            ],
+            "concerns": [
+                "May cause flushing in high concentrations"
+            ],
+            "conflicts": [
+                "vitamin-c"
+            ],
+            "usage": "AM or PM",
+            "frequency": "Daily",
+            "phRange": "5.0-7.0"
+        },
+        {
+            "id": "aha",
+            "name": "AHA (Glycolic/Lactic Acid)",
+            "category": "exfoliant",
+            "benefits": [
+                "Exfoliation",
+                "Brightening",
+                "Texture improvement"
+            ],
+            "concerns": [
+                "Photosensitivity",
+                "Can cause irritation"
+            ],
+            "conflicts": [
+                "retinol",
+                "vitamin-c",
+                "bha"
+            ],
+            "usage": "PM only",
+            "frequency": "2-3x per week",
+            "phRange": "3.0-4.0"
+        },
+        {
+            "id": "bha",
+            "name": "BHA (Salicylic Acid)",
+            "category": "exfoliant",
+            "benefits": [
+                "Acne treatment",
+                "Pore clearing",
+                "Oil control"
+            ],
+            "concerns": [
+                "Can cause dryness",
+                "Photosensitivity"
+            ],
+            "conflicts": [
+                "retinol",
+                "vitamin-c",
+                "aha"
+            ],
+            "usage": "PM preferred",
+            "frequency": "2-3x per week",
+            "phRange": "3.0-4.0"
+        },
+        {
+            "id": "hyaluronic-acid",
+            "name": "Hyaluronic Acid",
+            "category": "hydrator",
+            "benefits": [
+                "Hydration",
+                "Plumping",
+                "Moisture retention"
+            ],
+            "concerns": [
+                "None significant"
+            ],
+            "conflicts": [],
+            "usage": "AM and PM",
+            "frequency": "Daily",
+            "phRange": "5.0-7.0"
+        },
+        {
+            "id": "ceramides",
+            "name": "Ceramides",
+            "category": "moisturizer",
+            "benefits": [
+                "Barrier repair",
+                "Moisture retention",
+                "Soothing"
+            ],
+            "concerns": [
+                "None significant"
+            ],
+            "conflicts": [],
+            "usage": "AM and PM",
+            "frequency": "Daily",
+            "phRange": null
+        },
+        {
+            "id": "peptides",
+            "name": "Peptides",
+            "category": "active",
+            "benefits": [
+                "Anti-aging",
+                "Collagen support",
+                "Firming"
+            ],
+            "concerns": [
+                "None significant"
+            ],
+            "conflicts": [],
+            "usage": "AM and PM",
+            "frequency": "Daily",
+            "phRange": "4.0-7.0"
+        },
+        {
+            "id": "benzoyl-peroxide",
+            "name": "Benzoyl Peroxide",
+            "category": "active",
+            "benefits": [
+                "Acne treatment",
+                "Antibacterial"
+            ],
+            "concerns": [
+                "Can bleach fabrics",
+                "May cause dryness"
+            ],
+            "conflicts": [
+                "retinol",
+                "vitamin-c"
+            ],
+            "usage": "AM or PM",
+            "frequency": "Daily or as needed",
+            "phRange": null
+        },
+        {
+            "id": "spf",
+            "name": "SPF (Sunscreen)",
+            "category": "protection",
+            "benefits": [
+                "UV protection",
+                "Prevents aging",
+                "Prevents hyperpigmentation"
+            ],
+            "concerns": [
+                "Must reapply every 2 hours"
+            ],
+            "conflicts": [],
+            "usage": "AM only (last step)",
+            "frequency": "Daily",
+            "phRange": null
+        }
+    ],
+    "conflictRules": [
+        {
+            "ingredient1": "retinol",
+            "ingredient2": "vitamin-c",
+            "severity": "high",
+            "reason": "Can cause irritation and reduce effectiveness. Use at different times of day.",
+            "recommendation": "Use Vitamin C in AM, Retinol in PM"
+        },
+        {
+            "ingredient1": "retinol",
+            "ingredient2": "aha",
+            "severity": "high",
+            "reason": "Both are strong actives that can cause severe irritation when combined.",
+            "recommendation": "Alternate nights or use on different days"
+        },
+        {
+            "ingredient1": "retinol",
+            "ingredient2": "bha",
+            "severity": "high",
+            "reason": "Both are strong actives that can cause severe irritation when combined.",
+            "recommendation": "Alternate nights or use on different days"
+        },
+        {
+            "ingredient1": "vitamin-c",
+            "ingredient2": "niacinamide",
+            "severity": "medium",
+            "reason": "May reduce effectiveness (though recent research suggests they can be used together).",
+            "recommendation": "Use at different times of day if experiencing irritation"
+        },
+        {
+            "ingredient1": "aha",
+            "ingredient2": "bha",
+            "severity": "medium",
+            "reason": "Using both exfoliants together can cause over-exfoliation.",
+            "recommendation": "Alternate days or use one in AM, one in PM"
+        },
+        {
+            "ingredient1": "retinol",
+            "ingredient2": "benzoyl-peroxide",
+            "severity": "high",
+            "reason": "Benzoyl peroxide can oxidize retinol, making it ineffective.",
+            "recommendation": "Use at different times of day"
+        }
+    ],
+    "layeringOrder": [
+        "cleanser",
+        "toner",
+        "essence",
+        "serum-water-based",
+        "serum-oil-based",
+        "eye-cream",
+        "moisturizer",
+        "oil",
+        "spf"
+    ]
+}
