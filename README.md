@@ -4,7 +4,8 @@ A skincare companion web app that makes routines easier to stick to. Track the p
 
 It installs on your phone like a native app (PWA) and syncs across devices with a Firebase account.
 
-<!-- Add screenshots: drag images into this file on GitHub and replace this comment -->
+<img width="414" height="777" alt="image" src="https://github.com/user-attachments/assets/4e5d2258-da44-4322-b041-f6e62d9edc42" /> <img width="381" height="781" alt="image" src="https://github.com/user-attachments/assets/bd1c6212-293f-4260-b0c3-6aa173e8d50d" />
+
 
 ## Features
 
